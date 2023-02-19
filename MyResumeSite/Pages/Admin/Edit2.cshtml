@@ -1,0 +1,42 @@
+﻿@page
+@model MyResumeSite.Pages.Admin.Edit2Model
+@{
+    ViewData["Title"] = "Editing Resume";
+}
+
+<form method="post" class="border rounded shadow my-3 p-3">
+    @if (Model.SectionTitle == null)
+    {
+        <input type="hidden" asp-for="@Model.TitleDetail.ID" />
+        <input type="hidden" asp-for="@Model.TitleDetail.SectionID" />
+        <div class="row mx-3 align-items-center my-3">
+            <label>@Html.DisplayNameFor(n => n.TitleDetail.SkillName):</label>
+            <input asp-for="@Model.TitleDetail.SkillName" class="form-control" />
+            <span asp-validation-for="@Model.TitleDetail.SkillName" class="text-danger"></span>
+        </div>
+        <div class="row mx-3 align-items-center my-3">
+            <label>@Html.DisplayNameFor(n => n.TitleDetail.SkillKnowledge):</label>
+            <input asp-for="@Model.TitleDetail.SkillKnowledge" class="form-control" />
+            <span asp-validation-for="@Model.TitleDetail.SkillKnowledge" class="text-danger"></span>
+        </div>
+    }
+    else
+    {
+        <input type="hidden" asp-for="@Model.SectionTitle.ID" />
+        <input type="hidden" asp-for="@Model.SectionTitle.AdminResumeID" />
+        <div class="row mx-3 align-items-center my-3">
+            <label>@Html.DisplayNameFor(n => n.SectionTitle.SectionTitle):</label>
+            <input asp-for="@Model.SectionTitle.SectionTitle" class="form-control" />
+            <span asp-validation-for="@Model.SectionTitle.SectionTitle" class="text-danger"></span>
+        </div>
+    }
+    <div class="row mx-3 justify-content-between align-items-center">
+        <a class="btn btn-outline-secondary col-3" asp-page="/Admin/Index">Back</a>
+        <button type="submit" class="btn btn-outline-warning col-8">Edit</button>
+    </div>
+</form>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+}

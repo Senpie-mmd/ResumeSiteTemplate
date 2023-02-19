@@ -1,0 +1,60 @@
+﻿@page
+@model MyResumeSite.Pages.Admin.EditAdminInfoModel
+@{
+    ViewData["Title"] = "EditAdminInfo";
+}
+<link rel="stylesheet" type="text/css" href="/css/AdminIndex.css" />
+
+<form method="post" enctype="multipart/form-data" class="border rounded p-2">
+    <input type="hidden" asp-for="@Model.AdminInfo.Id" />
+    <input type="hidden" asp-for="@Model.AdminInfo.Image" />
+    <h2 class="form-control text-center font-weight-bold">Edit Admin Information</h2>
+    <div class="container justify-content-center align-items-center text-center">
+        @if (Model.AdminInfo.Image != null)
+        {
+            <img alt="yourImageHere" src="/Images/@Model.AdminInfo.Image" 
+            class="border formImg" id="blah" />
+        }
+        else
+        {
+            <img alt="yourImageHere"src="/Images/DefaultProfile.jpg"
+            class="border formImg" id="blah" />
+
+        }
+        <input accept="image/*" type="file" id="ImgUp" class="col-12 text-center"
+               name="ImgUp" />
+    </div>
+    <div class="row align-items-center p-3">
+        <label asp-for="@Model.AdminInfo.FullName" class="col-sm-12 col-md-3"></label>
+        <input asp-for="@Model.AdminInfo.FullName" class="col-sm-12 col-md-8 form-control" />
+        <span asp-validation-for="@Model.AdminInfo.FullName" class="text-danger text-left col-12"></span>
+    </div>
+    <div class="row align-items-center p-3">
+        <label asp-for="@Model.AdminInfo.PhoneNum" class="col-sm-12 col-md-3"></label>
+        <input asp-for="@Model.AdminInfo.PhoneNum" class="col-sm-12 col-md-8 form-control" />
+        <span asp-validation-for="@Model.AdminInfo.PhoneNum" class="text-danger text-left col-12"></span>
+    </div>
+    <div class="row align-items-center p-3">
+        <label asp-for="@Model.AdminInfo.Address" class="col-sm-12 col-md-3"></label>
+        <textarea asp-for="@Model.AdminInfo.Address" class="col-sm-12 col-md-8 form-control">
+        </textarea>
+        <span asp-validation-for="@Model.AdminInfo.Address" class="text-danger text-left col-12"></span>
+    </div>
+    <div class="text-right col-12">
+        <a asp-page="/Admin/Index">Back</a> |
+        <input type="submit" class="btn btn-warning" value="Confirm" />
+    </div>
+</form>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        ImgUp.onchange = evt => {
+            const [file] = ImgUp.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
+}

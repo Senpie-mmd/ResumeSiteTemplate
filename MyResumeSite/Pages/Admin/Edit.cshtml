@@ -1,0 +1,65 @@
+﻿@page
+@model MyResumeSite.Pages.Admin.EditModel
+@{
+    ViewData["Title"] = "EditResume";
+}
+<link rel="stylesheet" type="text/css" href="/css/AdminCreate.css" />
+
+<form method="post" class="my-3 p-3 border rounded">
+    <input type="hidden" asp-for="@Model.AdminResume.ID" />
+    <input type="hidden" asp-for="@Model.AdminResume.TypeID" />
+    <input type="hidden" asp-for="@Model.AdminResume.UserID" />
+    <div class="row justify-content-between align-items-center mx-1">
+        <img alt="" src="/Images/Icons/Profile.png" id="img1" class="btnImg" />
+        <img alt="" src="/Images/Icons/Skills.png" id="img2" class="btnImg" />
+        <img alt="" src="/Images/Icons/WorkXP.png" id="img3" class="btnImg" />
+    </div>
+    <input type="hidden" asp-for="@Model.AdminResume.Image" id="targetImg"
+           value="@Model.AdminResume.Image" />
+    <hr />
+    <div class="my-3">
+        <input class="form-control adminInput" asp-for="@Model.AdminResume.Title"
+               placeholder="@Html.DisplayNameFor(n => n.AdminResume.Title)" />
+        <span asp-validation-for="@Model.AdminResume.Title"
+              class="text-danger"></span>
+    </div>
+    @if (Model.AdminResume.TypeID != "type3")
+    {
+        @if (Model.AdminResume.TypeID == "type2")
+        {
+            <div class="my-3">
+                <input asp-for="@Model.AdminResume.DateAndTime"
+               class="form-control adminInput"
+               placeholder="*@Html.DisplayNameFor(n => n.AdminResume.DateAndTime )" required />
+                <span asp-validation-for="@Model.AdminResume.DateAndTime"
+              class="text-danger"></span>
+            </div>
+            <div class="my-3">
+                <input asp-for="@Model.AdminResume.SectionInfo"
+               class="form-control adminInput"
+               placeholder="*@Html.DisplayNameFor(n => n.AdminResume.SectionInfo )" required />
+                <span asp-validation-for="@Model.AdminResume.SectionInfo"
+              class="text-danger"></span>
+            </div>
+        }
+        <div class="my-3">
+            <textarea asp-for="@Model.AdminResume.Body" style="min-height: 200px;"
+                  class="form-control adminInput adminInput"
+                  placeholder="*@Html.DisplayNameFor(n => n.AdminResume.Body )" required>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               </textarea>
+            <span asp-validation-for="@Model.AdminResume.Body"
+              class="text-danger"></span>
+        </div>
+    }
+    <div class="my-1 text-right">
+        <a asp-page="/Admin/Index" class="text-secondary">Back</a> |
+        <input type="submit" class="btn btn-secondary" />
+    </div>
+</form>
+
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="/js/AdminCreate.js"></script>
+}

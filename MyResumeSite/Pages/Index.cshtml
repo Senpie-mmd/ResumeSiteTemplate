@@ -1,0 +1,165 @@
+﻿@page
+@using MyResumeSite.Utilities;
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+<link rel="stylesheet" type="text/css" href="/css/MainIndex.css" />
+@if (Model.IndexVM != null)
+{
+    <p class="txtTop row my-4">
+        @Model.IndexVM.AdminInfo.Address <span class="spanTop"> | </span>
+        @Model.IndexVM.AdminInfo.PhoneNum.PhoneFormat()<span class="spanTop"> | </span>
+        <a asp-page="SendMail" title="SendMail" class="nav-link p-0">
+            @Model.IndexVM.AdminInfo.Email
+        </a>
+    </p>
+    <p class="txtTop row my-4">
+        <a href="https://github.com/Senpie-mmd/ResumeTemplateSiteASP.NETRazorPages" target="_blank"
+       title="Github">
+            <img src="/Images/Icons/github.png" style="width: 30px;" />
+        </a>
+        <span class="spanTop">|</span>
+        <a href="https://www.linkedin.com/in/mohammad-yousefiasl-a63615249/" target="_blank"
+       title="Linkedin">
+            <img src="/Images/Icons/linkedin.png" style="width: 30px;" />
+        </a>
+    </p>
+    <hr />
+    @if (Model.IndexVM.AdminResumes.Count() != 0)
+    {
+        foreach (var item in Model.IndexVM.AdminResumes)
+        {
+            switch (item.TypeID)
+            {
+                case "type1":
+                    <div class="row border rounded shadow m-2 p-2">
+                        <div class="col-3 text-center">
+                            <img alt="" src="/Images/Icons/@item.Image" class="my-3 cardImg" />
+                        </div>
+                        <div class="col-9">
+                            <h2>@item.Title</h2>
+                            <p>@item.Body</p>
+                        </div>
+                    </div>
+                    break;
+                case "type2":
+                    <div class="row border rounded shadow m-2 p-2">
+                        <div class="col-3 text-center">
+                            <img alt="" src="/Images/Icons/@item.Image" class="my-3 cardImg" />
+                        </div>
+                        <div class="col-9">
+                            <h2>@item.Title</h2>
+                            <span class="text-muted">@item.DateAndTime</span>
+                            <h4>@item.SectionInfo</h4>
+                            <ul class="pl-3">
+                                @foreach (var item2 in item.Body.Split("--"))
+                                {
+                                    <li>@item2</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    break;
+                case "type3":
+                    <div class="row border rounded shadow m-2 p-2">
+                        <div class="col-3 text-center">
+                            <img alt="" src="/Images/Icons/@item.Image" class="my-3 cardImg" />
+                        </div>
+                        <div class="col-9">
+                            <h2>@item.Title</h2>
+                            <div>
+                                @foreach (var item2 in Model.IndexVM.SectionTitle.Where(n => n.AdminResumeID == item.ID))
+                                {
+                                    <h4>-@item2.SectionTitle</h4>
+                                    <div>
+                                        @foreach (var item3 in Model.IndexVM.TitleDetails.Where(n => n.SectionID == item2.ID))
+                                        {
+                                            <div class="m-3 align-items-center row border rounded p-3">
+                                                <label class="col-sm-12 col-md-4">@item3.SkillName</label>
+                                                <div class="rounded col-sm-12 col-md-8 progressContainer">
+                                                    <div class="rounded progress" style="width: @item3.SkillKnowledge%;"></div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    break;
+            }
+        }
+    }
+    else
+    {
+        <p class="alert alert-info">Nothing to show yet!</p>
+    }
+    <hr />
+    <div>
+        <h3 class="text-info col-12 text-center my-5">Comments!</h3>
+        @if (Model.IndexVM != null && Model.IndexVM.Comments.Count() != 0)
+        {
+            foreach (var item in Model.IndexVM.Comments)
+            {
+                <div class="border-top border-bottom mx-3 p-2">
+                    <h3>@item.AutherName</h3>
+                    <span class="text-muted">@item.AddedDate.ToMiladi()</span>
+                    <p>
+                        @item.Text
+                        <br /> <span class="@((item.Rate >= 5)?"text-success":"text-danger")">(UserRate: @item.Rate)</span>
+                    </p>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="alert alert-info">
+                Be the first to share your WorkExperience with me to
+                others!
+            </p>
+        }
+        <form method="post" class="border rounded m-3 p-3">
+
+            <input asp-for="@Model.IndexVM.Comment.AutherName"
+               class="form-control my-1 col-sm-12 col-md-3 d-inline-block"
+               placeholder="*@Html.DisplayNameFor(n => n.IndexVM.Comment.AutherName)" />
+            <span asp-validation-for="@Model.IndexVM.Comment.AutherName" class="text-danger"></span>
+
+            <input asp-for="@Model.IndexVM.Comment.AutherEmail"
+               class="form-control my-1 col-sm-12 col-md-8 d-inline-block"
+               placeholder="*@Html.DisplayNameFor(n => n.IndexVM.Comment.AutherEmail)" />
+            <span asp-validation-for="@Model.IndexVM.Comment.AutherEmail" class="text-danger"></span>
+
+            <textarea asp-for="@Model.IndexVM.Comment.Text"
+                  placeholder="*@Html.DisplayNameFor(n => n.IndexVM.Comment.Text)"
+                  class="form-control my-1" style="min-height: 200px;"></textarea>
+            <span asp-validation-for="@Model.IndexVM.Comment.Text" class="text-danger"></span>
+
+            <div class="row mt-3 mx-1 row justify-content-between align-items-center">
+                <label>@Html.DisplayNameFor(n=> n.IndexVM.Comment.Rate)</label>
+                <input asp-for="@Model.IndexVM.Comment.Rate" class="form-control col-8"
+                   type="number" step="0.1" />
+            </div>
+            <span asp-validation-for="@Model.IndexVM.Comment.Rate" class="text-danger"></span>
+            <div class="form-group my-3">
+                <div class="g-recaptcha" data-sitekey="@SD.SiteKey"></div>
+            </div>
+            <button type="submit" class="btn btn-outline-secondary col-12 mt-5">Comment!</button>
+        </form>
+    </div>
+}
+else
+{
+    <p class="alert alert-danger my-3">
+        Get started by
+        <a asp-page="/Account/Register" asp-area="Identity" class="alert-link">Registering</a>
+        the admin account!
+    </p>
+}
+
+@section Scripts
+    {
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <partial name="_ValidationScriptsPartial" />
+}

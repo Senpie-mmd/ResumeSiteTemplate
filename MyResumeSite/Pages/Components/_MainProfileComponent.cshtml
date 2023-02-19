@@ -1,0 +1,30 @@
+﻿@using MyResumeSite.Utilities;
+@inject SignInManager<IdentityUser> SignInManager
+@model MyResumeSite.Models.ViewModels.MainProfileViewModel
+
+<div class="formHeader">
+    <a asp-page="/Admin/Index" title="AdminPage">
+        @if (Model.Image != null)
+        {
+            <img alt="profile.jpg" src="/Images/@Model.Image" class="mainProfile shadow" />
+        }
+        else
+        {
+            <img alt="profile.jpg" src="/Images/DefaultProfile.jpg" class="mainProfile shadow" />
+        }
+    </a>
+    <div class="row">
+        <a asp-page="/Index" style="cursor: pointer; text-decoration: none;" title="Home">
+            <p class="mainName shadow">@Model.FullName</p>
+        </a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <form class="form-inline btnLogout" asp-area="Identity" asp-page="/Account/Logout"
+              asp-route-returnUrl="@Url.Page(null, new { area = "" })" method="post">
+                <button type="submit" class="nav-link btn btn-link" title="Logout">
+                    <img alt="Logout.png" src="/Images/Icons/logout.png" />
+                </button>
+            </form>
+        }
+    </div>
+</div>

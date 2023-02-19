@@ -1,0 +1,55 @@
+﻿@page
+@using MyResumeSite.Utilities;
+@model MyResumeSite.Pages.SendMailModel
+@{
+    ViewData["Title"] = "SendMail";
+}
+<link type="text/css" rel="stylesheet" href="/css/SendMail.css" />
+
+<div class="row justify-content-center my-3">
+    <form method="post" class=" row border rounded shadow p-3 col-12 justify-content-center"
+          style="max-width: 500px; background-color: rgba(0,0,0,0.7);">
+        <input type="hidden" asp-for="@Model.AdminEmail" />
+        <div class="row col-12 justify-content-between align-items-center my-2">
+            <label class="text-white fontSize">
+                @Html.DisplayNameFor(n => n.Message.Name):
+            </label>
+            <input asp-for="@Model.Message.Name" class="form-control" />
+            <span asp-validation-for="@Model.Message.Name" class="text-danger my-1"></span>
+        </div>
+        <div class="row col-12 justify-content-between align-items-center my-2">
+            <label class="text-white fontSize">
+                @Html.DisplayNameFor(n => n.Message.Email):
+            </label>
+            <input asp-for="@Model.Message.Email" class="form-control" />
+            <span asp-validation-for="@Model.Message.Email" class="text-danger my-1"></span>
+        </div>
+        <div class="row col-12 justify-content-between align-items-center my-2">
+            <label class="text-white fontSize">
+                @Html.DisplayNameFor(n => n.Message.Title):
+            </label>
+            <input asp-for="@Model.Message.Title" class="form-control" />
+            <span asp-validation-for="@Model.Message.Title" class="text-danger my-1"></span>
+        </div>
+        <div class="row col-12 justify-content-between align-items-center my-2 mx-3">
+            <label class="text-white fontSize">
+                @Html.DisplayNameFor(n => n.Message.Body):
+            </label>
+            <textarea asp-for="@Model.Message.Body" class="form-control" style="min-height: 200px;">
+            </textarea>
+            <span asp-validation-for="@Model.Message.Body" class="text-danger my-1"></span>
+        </div>
+        <div class="form-group mx-3">
+            <div class="g-recaptcha" data-sitekey="@SD.SiteKey"></div>
+        </div>
+        <div class="row col-12 justify-content-between align-items-center my-2">
+            <a asp-page="Index" class="btn btn-secondary">Back</a>
+            <input type="submit" value="Send" class="btn btn-success" />
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <partial name="_ValidationScriptsPartial" />
+}

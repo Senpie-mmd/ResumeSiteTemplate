@@ -1,0 +1,32 @@
+﻿@page
+@model MyResumeSite.Pages.Admin.ReplyMessageModel
+@{
+    ViewData["Title"] = "ReplyMessage";
+}
+
+<div class="row justify-content-center my-3">
+    <form method="post" class=" row border rounded shadow p-3 col-12 justify-content-center"
+          style="max-width: 500px; background-color: rgba(0,0,0,0.7);">
+        <input type="hidden" asp-for="@Model.Message.Email" />
+        <input type="hidden" asp-for="@Model.Message.Name" />
+        <div class="row col-12 justify-content-between align-items-center my-2">
+            <label class="text-white fontSize">
+                @Html.DisplayNameFor(n => n.Message.Title):
+            </label>
+            <input asp-for="@Model.Message.Title" class="form-control" />
+            <span asp-validation-for="@Model.Message.Title" class="text-danger my-1"></span>
+        </div>
+        <div class="row col-12 justify-content-between align-items-center my-2">
+            <label class="text-white fontSize">
+                @Html.DisplayNameFor(n => n.Message.Body):
+            </label>
+            <textarea asp-for="@Model.Message.Body" class="form-control" style="min-height: 200px;">
+            </textarea>
+            <span asp-validation-for="@Model.Message.Body" class="text-danger my-1"></span>
+        </div>
+        <div class="row col-12 justify-content-between align-items-center my-2">
+            <a asp-page="/Admin/Index" class="btn btn-secondary">Back</a>
+            <input type="submit" value="Send" class="btn btn-success" />
+        </div>
+    </form>
+</div>

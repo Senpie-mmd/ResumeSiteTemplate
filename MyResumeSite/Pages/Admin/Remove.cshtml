@@ -1,0 +1,59 @@
+﻿@page
+@model MyResumeSite.Pages.Admin.RemoveModel
+@{
+    ViewData["Title"] = "Removing Resume";
+}
+
+<div class="row border rounded shadow m-2 p-2">
+    <div class="col-3 text-center">
+        <img alt="" src="/Images/Icons/@Model.ResumeRemoveVM.AdminResume.Image" class="my-3 cardImg" />
+    </div>
+    <div class="col-9">
+        <h2>@Model.ResumeRemoveVM.AdminResume.Title</h2>
+        @switch (Model.ResumeRemoveVM.AdminResume.TypeID)
+        {
+            case "type1":
+                <p>@Model.ResumeRemoveVM.AdminResume.Body</p>
+                break;
+            case "type2":
+                <ul class="pl-3">
+                    @foreach (var item2 in Model.ResumeRemoveVM.AdminResume.Body.Split("--"))
+                    {
+                        <li>@item2</li>
+                    }
+                </ul>
+                break;
+            case "type3":
+                @foreach (var item2 in Model.ResumeRemoveVM.SectionTitles)
+                {
+                    <div class="row justify-content-between align-items-center">
+                        <h4>-@item2.SectionTitle</h4>
+                    </div>
+                    <div>
+                        @foreach (var item3 in Model.ResumeRemoveVM.TitleDetails.Where(n => n.SectionID == item2.ID))
+                        {
+                            <div class="m-3 align-items-center row border rounded p-3">
+                                <label class="col-sm-12 col-md-4">@item3.SkillName</label>
+                                <div class="rounded col-sm-12 col-md-8 progressContainer">
+                                    <div class="rounded progress" style="width: @item3.SkillKnowledge%;"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                break;
+        }
+    </div>
+    <form method="post" class="mx-2 col-12 row justify-content-between align-items-center">
+        <input type="hidden" asp-for="@Model.ResumeRemoveVM.AdminResume.ID" />
+        <input type="hidden" asp-for="@Model.ResumeRemoveVM.AdminResume.TypeID" />
+        <input type="hidden" asp-for="@Model.ResumeRemoveVM.AdminResume.UserID" />
+        <input type="hidden" asp-for="@Model.ResumeRemoveVM.AdminResume.Image" />
+        <input type="hidden" asp-for="@Model.ResumeRemoveVM.AdminResume.Title" />
+        <input type="hidden" asp-for="@Model.ResumeRemoveVM.AdminResume.Body" />
+        <input type="hidden" asp-for="@Model.ResumeRemoveVM.AdminResume.DateAndTime" />
+        <input type="hidden" asp-for="@Model.ResumeRemoveVM.AdminResume.SectionInfo" />
+        <a asp-page="/Admin/Index" class="btn btn-secondary">Back</a>
+        <input type="submit" value="Remove" class="btn btn-danger" />
+    </form>
+</div>

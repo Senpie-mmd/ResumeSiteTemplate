@@ -1,0 +1,44 @@
+﻿@page
+@model MyResumeSite.Pages.Admin.Remove2Model
+@{
+    ViewData["Title"] = "Removing Resume";
+}
+<div class="border rounded shadow my-3 p-3">
+    @if (Model.SectionTitle == null)
+    {
+        <div class="row m-3 justify-content-between align-items-center">
+            <label>@Html.DisplayNameFor(n => n.TitleDetail.SkillName)</label>
+            <input asp-for="@Model.TitleDetail.SkillName" disabled class="form-control" />
+        </div>
+        <div class="row m-3 justify-content-between align-items-center">
+            <label>@Html.DisplayNameFor(n => n.TitleDetail.SkillKnowledge)</label>
+            <input asp-for="@Model.TitleDetail.SkillKnowledge" disabled class="form-control" />
+        </div>
+    }
+    else
+    {
+        <div class="row m-3 justify-content-between align-items-center">
+            <label>@Html.DisplayNameFor(n => n.SectionTitle.SectionTitle)</label>
+            <input asp-for="@Model.SectionTitle.SectionTitle" disabled class="form-control" />
+        </div>
+    }
+    <form method="post" class="row justify-content-between align-items-center mx-3">
+        <input type="hidden" asp-for="@Model.SectionTitle.SectionTitle" />
+        <a asp-page="/Admin/Index" class="btn btn-outline-secondary col-3">Back</a>
+        @if (Model.SectionTitle == null)
+        {
+            <button type="submit" class="btn btn-outline-danger col-8"
+                asp-route-DetailID="@Model.TitleDetail.ID">
+                Remove
+            </button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-outline-danger col-8"
+                asp-route-SectionID="@Model.SectionTitle.ID">
+                Remove
+            </button>
+        }
+
+    </form>
+</div>

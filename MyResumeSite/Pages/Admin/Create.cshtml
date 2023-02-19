@@ -1,0 +1,193 @@
+﻿@page
+@model MyResumeSite.Pages.Admin.CreateModel
+@{
+    ViewData["Title"] = "CreateAdminResume";
+}
+
+<link rel="stylesheet" type="text/css" href="/css/site.css" />
+<link rel="stylesheet" type="text/css" href="/css/AdminCreate.css" />
+
+@if (Model.AdminResume.TypeID != "")
+{
+    <form method="post" class="my-3 p-3 border rounded">
+        <div class="row justify-content-between align-items-center mx-1">
+            <img alt="" src="/Images/Icons/Profile.png" id="img1" class="btnImg" />
+            <img alt="" src="/Images/Icons/Skills.png" id="img2" class="btnImg" />
+            <img alt="" src="/Images/Icons/WorkXP.png" id="img3" class="btnImg" />
+        </div>
+        <input type="hidden" asp-for="@Model.AdminResume.Image" id="targetImg"
+           value="anonymous.png" />
+        <input type="hidden" asp-for="@Model.AdminResume.TypeID" />
+        <input type="hidden" asp-for="@Model.AdminResume.UserID" />
+        @switch (Model.AdminResume.TypeID)
+        {
+            case "type1":
+                <div class="my-3">
+                    <input asp-for="@Model.AdminResume.Title"
+               class="form-control adminInput"
+               placeholder="*@Html.DisplayNameFor(n => n.AdminResume.Title )" required />
+                    <span asp-validation-for="@Model.AdminResume.Title"
+              class="text-danger"></span>
+                </div>
+                <div class="my-3">
+                    <textarea asp-for="@Model.AdminResume.Body" style="min-height: 200px;"
+                  class="form-control adminInput adminInput"
+                  placeholder="*@Html.DisplayNameFor(n => n.AdminResume.Body )" required>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </textarea>
+                    <span asp-validation-for="@Model.AdminResume.Body"
+              class="text-danger"></span>
+                </div>
+                <div class="my-1 text-right">
+                    <a asp-page="/Admin/Create" class="text-secondary">Back</a> |
+                    <input type="submit" class="btn btn-secondary" />
+                </div>
+                break;
+            case "type2":
+                <div class="my-3">
+                    <input asp-for="@Model.AdminResume.Title"
+               class="form-control adminInput"
+               placeholder="*@Html.DisplayNameFor(n => n.AdminResume.Title )" required />
+                    <span asp-validation-for="@Model.AdminResume.Title"
+              class="text-danger"></span>
+                </div>
+                <div class="my-3">
+                    <input asp-for="@Model.AdminResume.DateAndTime"
+               class="form-control adminInput"
+               placeholder="*@Html.DisplayNameFor(n => n.AdminResume.DateAndTime )" required />
+                    <span asp-validation-for="@Model.AdminResume.DateAndTime"
+              class="text-danger"></span>
+                </div>
+                <div class="my-3">
+                    <input asp-for="@Model.AdminResume.SectionInfo"
+               class="form-control adminInput"
+               placeholder="*@Html.DisplayNameFor(n => n.AdminResume.SectionInfo )" required />
+                    <span asp-validation-for="@Model.AdminResume.SectionInfo"
+              class="text-danger"></span>
+                </div>
+                <div class="my-3">
+                    <p class="alert alert-info">Sepurate each List with double Hyphen! (--)</p>
+                    <textarea asp-for="@Model.AdminResume.Body" style="min-height: 200px;"
+                  class="form-control adminInput adminInput"
+                  placeholder="*@Html.DisplayNameFor(n => n.AdminResume.Body )" required>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       </textarea>
+                    <span asp-validation-for="@Model.AdminResume.Body"
+              class="text-danger"></span>
+                </div>
+                <div class="my-1 text-right">
+                    <a asp-page="/Admin/Create" class="text-secondary">Back</a> |
+                    <input type="submit" class="btn btn-secondary" />
+                </div>
+                break;
+            case "type3":
+                <div class="my-3">
+                    <input asp-for="@Model.AdminResume.Title"
+               class="form-control adminInput"
+               placeholder="*@Html.DisplayNameFor(n => n.AdminResume.Title )" required />
+                    <span asp-validation-for="@Model.AdminResume.Title"
+              class="text-danger"></span>
+                </div>
+                <div class="my-1 text-right">
+                    <a asp-page="/Admin/Create" class="text-secondary">Back</a> |
+                    <input type="submit" class="btn btn-secondary" value="next" />
+                </div>
+                break;
+        }
+    </form>
+}
+else
+{
+    <form method="post" class="border rounded shadow my-3 p-3">
+        <p class="alert alert-info my-2">Please pick a resume type to continiue!</p>
+        <div class="row mx-auto justify-content-center">
+            <div class="card col-sm-12 col-md-12 col-lg-5 p-2 m-3">
+                <div class="card-header">
+                    <h4 class="text-center text-info">Type1</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row border rounded shadow m-2 p-2">
+                        <div class="col-3 text-center">
+                            <img alt="" src="/Images/Icons/Profile.png" />
+                        </div>
+                        <div class="col-9">
+                            <h2>#header</h2>
+                            <p>#Some text will go here!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary col-12" asp-page-handler="Type"
+                        asp-route-TypeID="type1">
+                        Pick
+                    </button>
+                </div>
+            </div>
+            <div class="card col-sm-12 col-md-12 col-lg-5 p-2 m-3">
+                <div class="card-header">
+                    <h4 class="text-center text-info">Type2</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row border rounded shadow m-2 p-2">
+                        <div class="col-3 text-center">
+                            <img alt="" src="/Images/Icons/Skills.png" />
+                        </div>
+                        <div class="col-9">
+                            <h2>#header</h2>
+                            <span class="text-muted">#Date&Time</span>
+                            <h4>#SectionInfo</h4>
+                            <ul class="pl-3">
+                                <li>#Sth will go here!</li>
+                                <li>#Sth will go here!</li>
+                                <li>#Sth will go here!</li>
+                                <li>#Sth will go here!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary col-12" asp-page-handler="Type"
+                        asp-route-TypeID="type2">
+                        Pick
+                    </button>
+                </div>
+            </div>
+            <div class="card col-sm-12 col-md-12 col-lg-5 p-2 m-3">
+                <div class="card-header">
+                    <h4 class="text-center text-info">Type3</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row border rounded shadow m-2 p-2">
+                        <div class="col-3 text-center">
+                            <img alt="" src="/Images/Icons/WorkXP.png" />
+                        </div>
+                        <div class="col-9">
+                            <h2>#header</h2>
+                            <div>
+                                <h5>#ssecHeader</h5>
+                                <div>
+                                    <div class="align-items-center row p-3">
+                                        <label class="col-sm-12 col-lg-6">JavaScript</label>
+                                        <div class="rounded col-sm-12 col-md-12 col-lg-6 progressContainer">
+                                            <div class="rounded progress"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-secondary col-12" asp-route-TypeID="type3"
+                        asp-page-handler="Type">
+                        Pick
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="/js/AdminCreate.js"></script>
+}

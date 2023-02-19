@@ -1,0 +1,57 @@
+﻿@page
+@model MyResumeSite.Pages.Admin.Create2Model
+@{
+    ViewData["Title"] = "Creating Resume";
+}
+<form method="post" class="border rounded shadow my-3 p-3">
+    <input type="hidden" asp-for="isFirstTitle" />
+    @if (Model.CreateResumeVM.TitleDetails != null && Model.CreateResumeVM.TitleDetails.SectionID == 0)
+    {
+        <input type="hidden" asp-for="@Model.CreateResumeVM.SectionTitle.AdminResumeID" />
+        <h3 class="text-info">Adding SectionHeader</h3>
+        <div class="row m-3">
+            <input class="form-control"
+               asp-for="@Model.CreateResumeVM.SectionTitle.SectionTitle"
+               placeholder="*@Html.DisplayNameFor(n => n.CreateResumeVM.SectionTitle.SectionTitle)" />
+            <span asp-validation-for="@Model.CreateResumeVM.SectionTitle.SectionTitle"
+              class="text-danger"></span>
+        </div>
+        <div class="row m-3">
+            <button class="btn btn-secondary p-2 ml-auto" type="submit">Next</button>
+        </div>
+    }
+    else
+    {
+        <input type="hidden" asp-for="@Model.CreateResumeVM.TitleDetails.SectionID" />
+        <h3 class="text-info">Adding Section Details</h3>
+        <p class="alert alert-info">
+            If you want to add more SectionHeaders
+            go to admin panel and add more!
+        </p>
+        <div class="row m-3">
+            <input asp-for="@Model.CreateResumeVM.TitleDetails.SkillName"
+               class="form-control"
+               placeholder="@Html.DisplayNameFor(n => n.CreateResumeVM.TitleDetails.SkillName)" />
+            <span asp-validation-for="@Model.CreateResumeVM.TitleDetails.SkillName"
+              class="text-danger"></span>
+        </div>
+        <div class="row m-3">
+            <input asp-for="@Model.CreateResumeVM.TitleDetails.SkillKnowledge"
+               class="form-control"
+               placeholder="@Html.DisplayNameFor(n => n.CreateResumeVM.TitleDetails.SkillKnowledge)" />
+            <span asp-validation-for="@Model.CreateResumeVM.TitleDetails.SkillKnowledge"
+              class="text-danger"></span>
+        </div>
+        <div class="row m-3">
+            <button type="submit" class="btn btn-secondary ml-auto">Add</button>
+        </div>
+    }
+</form>
+
+@if (Model.isFirstTitle == true)
+{
+    <a class="p-2 btn btn-success col-12 shadow"
+   asp-page="/Index">
+        Finish
+    </a>
+}

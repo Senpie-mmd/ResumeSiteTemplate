@@ -1,0 +1,17 @@
+﻿@page
+@using MyResumeSite.Utilities;
+@model MyResumeSite.Pages.Admin.RemoveMessageModel
+@{
+    ViewData["Title"] = "RemoveMessage";
+}
+
+<form method="post" class="p-3 m-3 border flex-column shadow">
+    <h4>@Model.Message.Name</h4>
+    <span class="text-muted">@Model.Message.Email -- @Model.Message.AddedTime.ToMiladi()</span>
+    <p class="my-3">@Model.Message.Body</p>
+    <div class="row justify-content-between align-items-center mx-2">
+        <a asp-page="/Admin/Index" class="btn btn-secondary">Back</a>
+        <input value="Remove" class="btn btn-danger" type="submit"
+               asp-route-ID="@Model.Message.ID" />
+    </div>
+</form>
